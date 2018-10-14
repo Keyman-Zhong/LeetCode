@@ -1,0 +1,19 @@
+//这题应该是用了最普遍最容易想到的暴力法去做，总的来说思路比较简单，两个循环完事
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int>result;//定义一个vector存储结果
+        int n=nums.size();//定义变量n作为循环条件
+        //循环相加
+        for(int k=0;k<n-1;++k){
+            for(int j=k+1;j<n;++j){
+                if(nums[k]+nums[j]==target){
+                    result.push_back(k);
+                    result.push_back(j);
+                    return result;
+                }
+            }
+        }
+        
+    }
+};
