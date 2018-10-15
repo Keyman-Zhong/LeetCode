@@ -1,0 +1,31 @@
+//整数反转主要是将整数对各位取余（%10）后再按取余顺序将其进位（*10），注意取余后要将最后一位数去除（/10即可）,循环操作直到x<0
+//例如：x=321,result=0
+//result=0(这里为result的值)*10+x(x=321)/10,x=321/10
+//result=1*10+32%10
+//以此循环
+//溢出一开始没想明白，后来发现自己想多了，好吧(￣▽￣)"
+class Solution {
+public:
+    int reverse(int x) {
+        long long result=0;//应题目要求定义longlong型整数
+        bool positive=true;//定义正负
+        //检测正负
+        if(x<0){
+            positive=false;
+            x*=(-1);
+        }
+        //进行翻转
+        while(x>0){
+            result=result*10+x%10;
+            x/=10;
+        }
+        if(result>INT_MAX)return 0;//溢出返回0
+        //对值输出正负
+        if(positive){
+            return result;
+        }
+        else{
+            return -result;}
+        
+    }
+};
