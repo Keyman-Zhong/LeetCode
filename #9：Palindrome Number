@@ -1,0 +1,36 @@
+//回文数一开始的思路就是将整数翻转过来与初始值进行比较，在这个过程中出现了点小问题。其一，在循环的时候没有注意变量的作用域，没有提前保存x值，弄得结果
+//一直输出错误。其二，判断条件没有考虑明白，会漏掉一些特殊情况。初次版本的程序猜测是条件判断的缘故使得程序不通过，但具体不知道怎么修改
+//最终版本
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int original=x;//记录初始输入值以便其后的比较
+        int result=0;//记录结果值
+        //将整数反转
+        while(x != 0){
+            result=result*10+x%10;
+            x/=10;
+        }
+        //判断是否回文
+        if(result == original && original >= 0){
+            return true;
+        }
+        else return false;
+
+    }
+};
+//初次版本，执行通过，提交不通过，还没弄清楚问题出在哪里
+class Solution {
+public:
+    bool isPalindrome(int x) {
+    if(x<0)return false;
+        int original=x;
+        int result=0;
+        while(x!=0){
+            if(result>INT_MAX/10)return -1;
+            result=result*10+x%10;
+            x/=10;
+        }
+      return original==result;
+    }
+};
