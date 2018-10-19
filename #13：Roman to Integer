@@ -1,0 +1,52 @@
+//这道题的思路比较简单粗暴，循环读遍整个stirng.一开始想把几个特殊情况跳出来单独判断，例如I，循环遇到判断右边是否为V或X，相应的加4/9
+//一开始用了while和if，写完之后自己都感觉太耗时，果然一提交发现超时
+//后面改用switch，但是感觉还是太慢了
+//再想想发现三个特殊情况都是先判断右边的字符，然后再减去自身的值，这样就不用在case里面用三个循环
+//这个是非常笨的方法，网上有其他更好的思路
+class Solution {
+public:
+    int romanToInt(string s) {
+        int result=0;//定义一个整数记录结果
+        //循环整个string
+        for(int i=0;i<s.size();++i){
+        //用swithc进行筛选
+            switch(s[i]){
+            //遇到相应的字符便在原结果上累加相应字符对应的值
+            case'M':
+                    result=result+1000;
+                    break;
+            case'D':
+                    result=result+500;
+                    break;
+            //三个特殊字符，先判断下一个字符是否是最后一个字符同时判断下一个字符的具体情况，进行相应的操作，否则就在原结果上累加对应的值
+            case'C':
+                    if((i+1)<s.size()&&s[i+1]=='D'||s[i+1]=='M'){
+                        result=result-100;
+                    }
+                    else{result=result+100;}
+                    break;
+            case'L':
+                    result=result+50;
+                    break;
+            case'X':
+                    if((i+1)<s.size()&&s[i+1]=='L'||s[i+1]=='C'){
+                        result=result-10;
+                    }
+                    else{result=result+10;}
+                    break;
+            case'V':   
+                    result=result+5;
+                    break;
+            case'I':
+                    if((i+1)<s.size()&&s[i+1]=='V'||s[i+1]=='X'){
+                        result=result-1;
+                    }
+                    else{result=result+1;}
+                    break;
+                
+                
+            }
+        }
+        return result;//返回
+    }
+};
