@@ -1,0 +1,21 @@
+//这道题一开始想直接判断，后面发现还要符合运算规则，想不出来，看到大神用栈，豁然开朗
+//使用栈的话思路就很清晰，先看看有没有左括号，将其推入栈中
+//遇到右边括号时，若栈为空，直接false，不为空，取出栈顶元素
+//若为对应的左半边括号，则继续循环
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> result;
+        for (int i = 0; i < s.size(); ++i) {
+            if (s[i] == '(' || s[i] == '[' || s[i] == '{') result.push(s[i]);
+            else {
+                if (result.empty()) return false;
+                if (s[i] == ')' && result.top() != '(') return false;
+                if (s[i] == ']' && result.top() != '[') return false;
+                if (s[i] == '}' && result.top() != '{') return false;
+                result.pop();
+            }
+        }
+        return result.empty();
+    }
+};
