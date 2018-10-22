@@ -1,0 +1,16 @@
+//这道题和#26有异曲同工之妙，基本思路都是一样的，实际上这道题可能还略简单一点
+//依旧是使用s.erase()
+//用一个while循环将整个vector循环下来
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        auto it=nums.begin();
+        while(it!=nums.end()){
+            if(*it==val){             //若元素等于val
+                it=nums.erase(it);    //删除此元素
+            }
+            else{++it;}               //erase返回指向删除的元素之后位置的迭代器，这里没使用erase，所以要手动递增
+        }
+        return nums.size();
+    }
+};
