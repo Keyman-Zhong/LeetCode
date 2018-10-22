@@ -1,0 +1,20 @@
+//这道题的思路比较简单，主要是使用vector相关的迭代器来进行操作
+//利用s.erase()删除vector中的元素
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        auto it=nums.begin();
+        //两个循环，从第一个元素开始向后比较，遇到相同的就删除
+        for(auto i=it;i<nums.end();++i){
+            for(auto j=i+1;j<nums.end();++j){
+            //因为使用了迭代器，比较时记得使用*来对迭代器解引用获得对应的元素
+                if(*i==*j){
+                    j=nums.erase(j);
+                    //erase会返回指向删除的（最后一个）元素之后位置的迭代器，因为外部循环已经有加操作，所以这里做一个减法
+                    --j;
+                }
+            }
+        }
+        return nums.size();
+    }
+};
