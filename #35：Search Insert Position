@@ -1,0 +1,19 @@
+//这道题很简单，遍历整个vector与target进行比较即可
+//其实可以省略一个循环，只要将条件改为>=即可
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        for(int i=0;i<nums.size();++i){
+            if(nums[i]==target){
+                return i;
+            }
+        }
+        for(int j=0;j<nums.size();++j){
+            if(nums[j]>target){
+                return j;
+            }
+            
+        }
+        return nums.size();    //这是当target值比vector中所有值都大的情况下
+    }
+};
