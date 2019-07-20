@@ -1,1 +1,23 @@
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *dummy = new ListNode(-1), *cur = dummy;//创建新链表dummy用来记录相加结果，cur指向dummy的最后一个节点
+        int carry = 0;//carry表示进位
+        //循环相加过程
+        while (l1 || l2) {//判断链表是否为空
+            int val1 = l1 ? l1->val : 0;
+            int val2 = l2 ? l2->val : 0;
+            int sum = val1 + val2 + carry;
+            carry = sum / 10;
+            cur->next = new ListNode(sum % 10);
+            cur = cur->next;
+            if (l1) l1 = l1->next;
+            if (l2) l2 = l2->next;
+        }
+        if (carry) cur->next = new ListNode(1);//最高位进位
+        return dummy->next;
+    }
+};
 
+
+//https://www.cnblogs.com/grandyang/p/4129891.html
