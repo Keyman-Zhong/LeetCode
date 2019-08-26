@@ -1,0 +1,39 @@
+//这道题的思路很简单，新建一个链表来保存结果即可
+//因为是有序链表，合并时需要先比较两个链表的大小
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* result=new ListNode(-1),*cur=result;//新建链表保存结果，这里不明白为什么要用cur来指向result而不能直接用result操作
+        while(l1&&l2)//判断两链表都处于有效长度
+        {
+            if(l1->val<l2->val)//判断数值大小
+            {
+                cur->next=l1;
+                l1=l1->next;
+            }
+            else
+            {
+                cur->next=l2;
+                l2=l2->next;
+            }
+            cur=cur->next;
+        }
+        if(l1)//跳出while循环时，说明有链表已经到头，这里判断剩余的链表并将其插入
+        {
+            cur->next=l1;
+        }
+        else 
+        {
+            cur->next=l2;
+        }
+        return result->next;
+    }
+};
