@@ -1,0 +1,15 @@
+//这道题因为是为了要找最后一个单词，所以从字符串的尾端开始
+//单词是由空格间隔的，所以找到空格便可确定单词的位置
+//本来一开始想用find函数来找空格的，后面想到可能在末尾也会存在空格，情况有一点复杂
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int pos = s.size() - 1, result = 0;
+        while (pos >= 0 && s[pos] == ' ') --pos;
+        while (pos >= 0 && s[pos] != ' ' ) {
+            --pos; 
+            ++result;
+        }
+        return result;
+    }
+};
