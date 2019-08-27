@@ -1,1 +1,35 @@
-
+//这道题使用分治的想法，把序列分成两个大致相等的子序列，然后递归地对它们求解，再将两个子序列的解修补到一起并再做些小量的附加工作
+//这道题在《数据结构与算法分析——C++语言描述》中有提及
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        if(nums.empty())return 0;
+        return maxSumRec(nums,0,nums.size()-1);
+    }
+    int maxSumRec(vector<int>& a,int left,int right)
+    {
+        if(left==right)//基准情形
+            return a[left];
+        
+        int center=(left+right)/2;
+        int maxLeftSum=maxSumRec(a,left,center);
+        int maxRightSum=maxSumRec(a,center+1,right);
+        
+        int maxLeftBorderSum=INT_MIN,leftBorderSum=INT_MIN;
+        for(int i=center;i>=left;--i)
+        {
+            leftBorderSum+=a[i];
+            if(leftBorderSum>maxLeftBorderSum)
+                maxLeftBorderSum=leftBorderSum;
+        }
+        
+        int maxRightBorderSum=INT_MIN,rightBorderSum=INT_MIN;
+        for(int j=center+1;j<=right;++j)
+        {
+            rightBorderSum+=a[j];
+            if(rightBorderSum>maxRightBorderSum)
+                maxRightBorderSum=rightBorderSum;
+        }
+        return max(max(maxLeftSum,maxRightSum),maxLeftBorderSum+maxRightBorderSum);
+    }
+};
