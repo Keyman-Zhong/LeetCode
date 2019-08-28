@@ -1,0 +1,17 @@
+//这道题类似于手写的加法计算，判断末尾是否为9，满10进一，若上一位仍为9继续向前进位
+//注意可能会出现全为9的情况，这时候就要在vector的前面插入一个1
+class Solution {
+public:
+    vector<int> plusOne(vector<int> &digits) {
+        int n = digits.size();
+        for (int i = n - 1; i >= 0; --i) {
+            if (digits[i] == 9) digits[i] = 0;
+            else {
+                digits[i] += 1;
+                return digits;
+            }
+        }
+        if (digits.front() == 0) digits.insert(digits.begin(), 1);
+        return digits;
+    }
+};
