@@ -1,0 +1,25 @@
+//遍历整个链表，当发现当前结点与下一结点值相同时，舍弃下一级结点，将当前结点的下一结点接入原下一结点的下一结点
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* cur=head;
+        while(cur&&cur->next)
+        {
+            if(cur->val==cur->next->val)
+            {
+                cur->next=cur->next->next;
+            }
+            else
+                cur=cur->next;
+        }
+        return head;
+    }
+};
