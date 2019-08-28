@@ -1,0 +1,13 @@
+//这里用的是牛顿迭代法，还可以用二分法 参考：https://www.cnblogs.com/grandyang/p/4346413.html
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x == 0) return 0;
+        double res = 1, pre = 0;
+        while (abs(res - pre) > 1e-6) {
+            pre = res;
+            res = (res + x / res) / 2;
+        }
+        return int(res);
+    }
+};
