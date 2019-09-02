@@ -1,0 +1,16 @@
+//这道题是可以当天卖出又买入的，实际上等效于没有卖
+//所以只要比较这一次的价格和下一次的价格，若下一次价格大于这一次价格即可买入
+//把这次利润加入到结果中，继续往下循环
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty())return 0;
+        int result=0;
+        for(int i=0;i<prices.size()-1;++i)
+        {
+            if(prices[i]<prices[i+1])
+                result+=prices[i+1]-prices[i];
+        }
+        return result;
+    }
+};
