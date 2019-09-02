@@ -1,0 +1,15 @@
+//和118类似的思路，只不过返回的是vector中的一个
+//注意：杨辉三角中顶层称第0层，第1行，第n层即第 n+1 行，此处n为包含0在内的自然数
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<vector<int>> result(rowIndex+1, vector<int>());
+        for (int i=0; i<=rowIndex; ++i) {
+            result[i].resize(i+1, 1);
+            for (int j=1; j< i; ++j) {
+                result[i][j]=result[i-1][j-1]+result[i-1][j];
+            }
+        }
+        return result[rowIndex];
+    }
+};
