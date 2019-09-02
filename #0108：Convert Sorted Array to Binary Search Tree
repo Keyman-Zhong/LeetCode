@@ -1,0 +1,26 @@
+//二叉搜索树的定义：https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%85%83%E6%90%9C%E5%B0%8B%E6%A8%B9
+//根据定义可以得知，二叉搜索树的根节点即为有序数组的中间值
+//通过二分搜索递归，每部分的中点为当前节点，当前节点的左节点和右节点分别为左半部分的中点和右半部分的中点
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return helper(nums, 0 , (int)nums.size() - 1);
+    }
+    TreeNode* helper(vector<int>& nums, int left, int right) {
+        if (left > right) return NULL;
+        int mid = left + (right - left) / 2;
+        TreeNode *cur = new TreeNode(nums[mid]);
+        cur->left = helper(nums, left, mid - 1);
+        cur->right = helper(nums, mid + 1, right);
+        return cur;
+    }
+};
