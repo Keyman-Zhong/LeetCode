@@ -1,0 +1,20 @@
+//递归的方法求深度
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+       if(!root)return 0;
+       if(!root->left)return 1+minDepth(root->right);//如果左节点不存在，向右节点递归
+       if(!root->right)return 1+minDepth(root->left);//如果右节点不存在，向左节点递归
+       return 1+min(minDepth(root->left),minDepth(root->right));//左右节点都存在，返回左右节点中深度最小的那个
+    }
+    
+};
