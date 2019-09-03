@@ -1,0 +1,24 @@
+//回文一般做法都是分别从前、后两个方向同时进行比较，相同往下一个位置移动
+//这道题特殊在有空格和符号的干扰
+//利用一个函数来判断是否为字母及数字
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int left = 0, right = s.size() - 1 ;
+        while (left < right) {//当指针位置相同时停止比较
+            if (!isAlphaNum(s[left])) ++left;
+            else if (!isAlphaNum(s[right])) --right;
+            else if ((s[left] + 32 - 'a') %32 != (s[right] + 32 - 'a') % 32) return false;//大小写转换
+            else {
+                ++left; --right;
+            }
+        }
+        return true;
+    }
+    bool isAlphaNum(char &ch) {
+        if (ch >= 'a' && ch <= 'z') return true;
+        if (ch >= 'A' && ch <= 'Z') return true;
+        if (ch >= '0' && ch <= '9') return true;
+        return false;
+    }
+};
