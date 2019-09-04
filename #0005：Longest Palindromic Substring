@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.size() < 2) return s;//特殊情况，此时该字符串就是最大回文字符串
+        int n = s.size(), maxLen = 0, start = 0;//maxLen记录回文字符串的长度，start记录起点
+        for (int i = 0; i < n - 1; ++i) {
+            searchPalindrome(s, i, i, start, maxLen);//回文字符串为奇数时，从该字符向两边进行搜索
+            searchPalindrome(s, i, i + 1, start, maxLen);//回文字符串为偶数时，从该字符及下一个字符向两边进行搜素
+        }
+        return s.substr(start, maxLen);
+    }
+    void searchPalindrome(string s, int left, int right, int& start, int& maxLen) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            --left; ++right;
+        }
+        if (maxLen < right - left - 1) {//更新最大回文字符串的长度
+            start = left + 1;
+            maxLen = right - left - 1;
+        }
+    }
+};
