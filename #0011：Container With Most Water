@@ -1,0 +1,18 @@
+//一开始想的是遍历数组，求出所有组合的容积，再比较大小
+//后来想了想，可以从两边逼近，这样子可以尽可能的令长度拉长，只要高度增加即可求出最大的容积
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int left=0,right=height.size()-1,result=0;
+        while(left!=right)
+        {
+            int h=min(height[left],height[right]);//由于形状的限制取小的为高
+            result=max(result,h*(right-left));//容积=高*边缘的距离
+            if(height[left]>height[right])//若左面较高，令右面向左推进找到更高的高
+                --right;
+            else
+                ++left;
+        }
+        return result;
+    }
+};
