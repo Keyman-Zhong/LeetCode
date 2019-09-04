@@ -14,6 +14,6 @@ public:
             if (isMatch(s, p.substr(2))) return true;//去除p前两项与s比较
             s = s.substr(1);//若👆不成立，去掉s的首字符再进行比较
         }
-        return isMatch(s, p.substr(2));
+        return isMatch(s, p.substr(2));//否则令s和去掉前两个字符的p（去掉*）相比较
     }
 };
