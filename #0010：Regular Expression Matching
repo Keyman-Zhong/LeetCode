@@ -1,0 +1,19 @@
+//这道题的关键在于多种情况的考虑及合理的使用递归
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        if (p.empty()) return s.empty();//p为空，s也为空
+        if (p.size() == 1) {//p长度为1的情况
+            return (s.size() == 1 && (s[0] == p[0] || p[0] == '.'));
+        }
+        if (p[1] != '*') {
+            if (s.empty()) return false;
+            return (s[0] == p[0] || p[0] == '.') && isMatch(s.substr(1), p.substr(1));//若s、p的首字符匹配且p[1]!=*，此时去掉s、p的首字符进行递归
+        }
+        while (!s.empty() && (s[0] == p[0] || p[0] == '.')) {//p[1]=*，可表示为p[0]的零个或多个
+            if (isMatch(s, p.substr(2))) return true;//去除p前两项与s比较
+            s = s.substr(1);//若👆不成立，去掉s的首字符再进行比较
+        }
+        return isMatch(s, p.substr(2));
+    }
+};
