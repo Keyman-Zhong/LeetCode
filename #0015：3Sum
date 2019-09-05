@@ -1,0 +1,27 @@
+//用fix遍历数组，然后在其后的数组范围内求出组合
+//为什么在其后的数组范围内求，因为排序后fix前的数组范围都小于fix，同理后的数组范围都大于fix，而当0-fix后，我们要求满足两数之和为-fix的元素
+//此时前面的数组范围元素都是大于-fix，必定淘汰，而后面的数组范围元素都小于-fix，所以若存在结果，则一定在fix后的数组范围
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());//将数组排序
+        if (nums.empty() || nums.back() < 0 || nums.front() > 0) return {};//特殊情况
+        for (int k = 0; k < (int)nums.size() - 2; ++k) {
+            if (nums[k] > 0) break;//若数组首元素大于0即数组内的所有元素都大于0，无结果
+            if (k > 0 && nums[k] == nums[k - 1]) continue;//跳过重复元素
+            int target = 0 - nums[k], i = k + 1, j = (int)nums.size() - 1;
+            while (i < j) {
+                if (nums[i] + nums[j] == target) {
+                    res.push_back({nums[k], nums[i], nums[j]});
+                    //跳过重复元素
+                    while (i < j && nums[i] == nums[i + 1]) ++i;
+                    while (i < j && nums[j] == nums[j - 1]) --j;
+                    ++i; --j;
+                } else if (nums[i] + nums[j] < target) ++i;
+                else --j;
+            }
+        }
+        return res;
+    }
+};
