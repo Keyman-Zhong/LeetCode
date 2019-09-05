@@ -1,0 +1,30 @@
+//这道题可以先遍历整个链表，记录顺序，再回过头来寻找
+//因为要求扫描一遍完成，所以利用两个指针来寻找倒数
+//让两个指针相差N，当领先的那一个指针到链表末尾时，落后的指针所指向的下一个指针即是要删除的指针
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* cur=head,*pre=head;
+        if(!head->next)return NULL;
+        for(int i=0;i<n;++i)
+        {
+            cur=cur->next;
+        }
+        if(!cur)return head->next;//若cur向下next n次后为空指针，说明此时n表示为头节点
+        while(cur->next)
+        {
+            cur=cur->next;
+            pre=pre->next;
+        }
+        pre->next=pre->next->next;
+        return head;
+    }
+};
