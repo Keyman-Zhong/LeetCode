@@ -1,0 +1,18 @@
+//这道题也可以用map来做
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty()) return {};
+        vector<string> res;//保存结果
+        vector<string> dict{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};//定义字典，前面两个为空字符串是为了匹配键盘数字
+        letterCombinationsDFS(digits, dict, 0, "", res);//递归调用
+        return res;
+    }
+    void letterCombinationsDFS(string& digits, vector<string>& dict, int level, string out, vector<string>& res) {
+        if (level == digits.size()) {res.push_back(out); return;}//所有的数字都读取完
+        string str = dict[digits[level] - '0'];//相应数字对应的字母
+        for (int i = 0; i < str.size(); ++i) {
+            letterCombinationsDFS(digits, dict, level + 1, out + str[i], res);//递归调用，将dict中的字符组合
+        }
+    }
+};
