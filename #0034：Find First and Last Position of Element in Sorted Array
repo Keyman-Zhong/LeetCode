@@ -1,0 +1,26 @@
+//二分搜索
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int pos=0;
+        int left=0,right=nums.size()-1;
+        auto res=find(nums.cbegin(),nums.cend(),target);
+        if(res==nums.cend())return{-1,-1};
+        while(left<=right)//二分搜索找到target某个位置
+        {
+            int mid=(left+right)/2;
+            if(nums[mid]==target)pos=mid;
+            if(nums[mid]<target)
+                left=mid+1;
+            else 
+                right=mid-1;
+        }
+        int l=pos;
+        int r=pos;
+        //已搜索到的位置为中心，向左右两边遍历找出界限
+        while(l>0&&nums[l-1]==nums[l])--l;
+        while(r<nums.size()-1&&nums[r+1]==nums[r])++r;
+        return{l,r};
+    }
+};
+//算法时间复杂度不是 O(log n) 级别
