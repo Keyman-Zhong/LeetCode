@@ -1,0 +1,22 @@
+//这个题的关键点在于怎样为最大的下一个排列，具体的概念和解释请看leetcode的官方题解
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i,j;
+        int n=nums.size();
+        for(i=n-2;i>=0;--i)//从后往前遍历
+        {
+            if(nums[i+1]>nums[i])//找到后大于前的那个数
+            {
+                for(j=n-1;j>i;--j)
+                {
+                    if(nums[j]>nums[i])break;//从后往前遍历，找到后面序列第一个大于标记序列的数
+                }
+                swap(nums[i],nums[j]);//交换两数
+                reverse(nums.begin()+i+1,nums.end());//对后面的序列进行重排
+                return;
+            }
+        }
+        reverse(nums.begin(),nums.end());//若上述的循环通过，说明此时的排列为最后排列，即以递减排序，这是需要重排整个数组
+    }
+};
