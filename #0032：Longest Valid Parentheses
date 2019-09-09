@@ -1,0 +1,25 @@
+//这道题会包含字串，所以需要记录位置，一开始我就无脑叠加
+//用栈保留位置，start记录有效括号的起点
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int result=0,start=0;
+        stack<int> res;
+        if(s.empty())return 0;
+        for(int i=0;i<s.size();++i)
+        {
+            if(s[i]=='(')
+                res.push(i);
+            else{//此时s[i]为‘）’
+                if(res.empty())start=i+1;//若栈为空，这时候括号无效，起点向下递增
+                else{
+                    res.pop();
+                    result=res.empty()?max(result,i+1-start):max(result,i-res.top());//栈元素弹出后若为空，说明有效括号终止，记录此时的数值并和之前保存的结果比较
+                    //若不为空，比原数值大更新result的值
+                }
+                
+            }
+        }
+        return result;
+    }
+};
