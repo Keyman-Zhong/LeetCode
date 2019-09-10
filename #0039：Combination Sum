@@ -1,0 +1,21 @@
+//一般求所有组合问题都会用到递归，本题也不例外
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> result;
+        vector<int> res;
+        combine(candidates,target,0,result,res);
+        return result;
+    }
+    void combine(vector<int>& nums,int target,int start,vector<vector<int>>&result,vector<int>&res)
+    {
+        if(target==0)result.push_back(res);
+        if(target<0)return;
+        for(int i=start;i<nums.size();++i)//因为可以重复使用同一个元素，所以将循环初始设为start
+        {
+            res.push_back(nums[i]);
+            combine(nums,target-nums[i],i,result,res);
+            res.pop_back();
+        }
+    }
+};
