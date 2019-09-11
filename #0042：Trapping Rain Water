@@ -1,0 +1,25 @@
+//这道题一开始没想明白，其实就是一个求高度差的问题
+//左右双指针从边开始往中间遍历
+//若存在高度差（两边边界）则说明有坑存在，可以存放雨水
+//https://www.cnblogs.com/grandyang/p/4402392.html
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int res = 0, l = 0, r = height.size() - 1;
+        while (l < r) {
+            int mn = min(height[l], height[r]);
+            if (mn == height[l]) {
+                ++l;
+                while (l < r && height[l] < mn) {
+                    res += mn - height[l++];
+                }
+            } else {
+                --r;
+                while (l < r && height[r] < mn) {
+                    res += mn - height[r--];
+                }
+            }
+        }
+        return res;
+    }
+};
