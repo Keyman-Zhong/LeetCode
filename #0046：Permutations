@@ -1,0 +1,21 @@
+//一般求全排序的题目就会想到用递归去做，这里用深度优先搜索
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& num) {
+        vector<vector<int>> result;
+        vector<int> out, mark(num.size(), 0);//mark数组是为了标记该元素已使用，避免重复
+        permuteDFS(num, 0, mark, out, result);
+        return result;
+    }
+    void permuteDFS(vector<int>& num, int level, vector<int>& mark, vector<int>& out, vector<vector<int>>& result) {
+        if (level == num.size()) {result.push_back(out); return;}
+        for (int i = 0; i < num.size(); ++i) {
+            if (mark[i] == 1) continue;
+            mark[i] = 1;
+            out.push_back(num[i]);
+            permuteDFS(num, level + 1, mark, out, result);
+            out.pop_back();//弹出元素，进行其他组合
+            mark[i] = 0;//取消元素标记
+        }
+    }
+};
