@@ -1,0 +1,21 @@
+//这道题由于是字母异位的组合，所以可以先把string排序，这样子就可以一下判断出同类
+//接着是如何保存的问题
+//利用map将其存储，之后再将map中保存的string集合推入result中
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> result;
+        map<string,vector<string>> res;
+        for(auto str:strs)
+        {
+            string s=str;
+            sort(s.begin(),s.end());
+            res[s].push_back(str);
+        }
+        for(auto r:res)
+        {
+            result.push_back(r.second);
+        }
+        return result;
+    }
+};
